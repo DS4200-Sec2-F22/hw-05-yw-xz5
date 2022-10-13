@@ -39,6 +39,8 @@ for (let i = 0; i < circles.length; i++) {
 const FRAME_HEIGHT = 500;
 const FRAME_WIDTH = 500; 
 const MARGINS = {left: 50, right: 50, top: 50, bottom: 50};
+const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.left - MARGINS.right;
+const VIS_WIDTH = FRAME_WIDTH - MARGINS.top - MARGINS.bottom; 
 
 const FRAME1 = d3.select("#vis1") 
                   .append("svg") 
@@ -60,11 +62,11 @@ d3.csv("data/scatter-data.csv").then((data) => {
     // (domain) to pixel values (range)
     const X_SCALE = d3.scaleLinear() 
             .domain([0, (MAX_X)]) // add some padding  
-            .range([0, FRAME_WIDTH]); 
+            .range([0, VIS_WIDTH]); 
 
     const Y_SCALE = d3.scaleLinear() 
             .domain([0, (MAX_Y)]) // add some padding  
-            .range([FRAME_HEIGHT,0]);
+            .range([VIS_HEIGHT,0]);
 
   // d3.csv parses a csv file 
   // .then() passes the data parsed from the file to a function
@@ -81,6 +83,7 @@ d3.csv("data/scatter-data.csv").then((data) => {
             .data(data) // this is passed from  .then()
             .enter()  
             .append("circle")
+            .attr("id", (d) => {return "(" + d.x + "," + d.y + ")"; })
             .attr("cx", (d) => { return (X_SCALE(d.x) + MARGINS.left); }) // use x for cx
             .attr("cy", (d) => { return (Y_SCALE(d.y) + MARGINS.top); }) // use y for cy
             .attr("r", 10)  // set r 
@@ -89,7 +92,7 @@ d3.csv("data/scatter-data.csv").then((data) => {
     
     FRAME1.append("g") 
         .attr("transform", "translate(" + MARGINS.left + 
-            "," + (FRAME_HEIGHT + MARGINS.top) + ")") 
+            "," + (VIS_HEIGHT + MARGINS.top) + ")") 
         .call(d3.axisBottom(X_SCALE).ticks(4)) 
             .attr("font-size", '20px'); 
 
