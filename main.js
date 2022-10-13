@@ -182,43 +182,40 @@ function build_bar_chart() {
                     .attr("width", X_SCALE.bandwidth())
                     .attr("fill", "blue") // width comes from X_SCALE for free
                     .attr("class", "bar"); 
-    })
 
 
-    const TOOLTIP = d3.select("#vis2")
-                        .append("div")
-                          .attr("class", "tooltip")
-                          .style("opacity", 0); 
+                    const TOOLTIP = d3.select("#vis2")
+                    .append("div")
+                      .attr("class", "tooltip")
+                      .style("opacity", 0); 
 
     // Define event handler functions for tooltips
     function handleMouseover(event, d) {
-      // on mouseover, make opaque 
-      TOOLTIP.style("opacity", 1); 
-      console.log("mouseover");
-      
+        // on mouseover, make opaque 
+        TOOLTIP.style("opacity", 1); 
+        console.log("mouseover");
+  
     }
 
     function handleMousemove(event, d) {
-      // position the tooltip and fill in information 
-      TOOLTIP.html("Category: " + d.category + "<br>Amount: " + d.amount)
-              .style("left", (event.pageX + 10) + "px") //add offset
-                                                          // from mouse
-              .style("top", (event.pageY - 50) + "px"); 
+    // position the tooltip and fill in information 
+        TOOLTIP.html("Category: " + d.category + "<br>Amount: " + d.amount)
+            .style("left", (event.pageX + 10) + "px") //add offset from mouse
+            .style("top", (event.pageY - 50) + "px"); 
         console.log("mousemove");
     }
 
     function handleMouseleave(event, d) {
-      // on mouseleave, make transparant again 
-      TOOLTIP.style("opacity", 0); 
+        // on mouseleave, make transparant again 
+        TOOLTIP.style("opacity", 0); 
     } 
 
     // Add event listeners
     FRAME2.selectAll(".bar")
-          .on("mouseover", handleMouseover)
-          .on("mousemove", handleMousemove)
-          .on("mouseleave", handleMouseleave);  
-
-
+        .on("mouseover", handleMouseover)
+        .on("mousemove", handleMousemove)
+        .on("mouseleave", handleMouseleave);  
+    })
 }
 
-build_bar_chart()
+build_bar_chart();
