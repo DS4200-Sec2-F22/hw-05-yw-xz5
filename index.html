@@ -11,13 +11,57 @@
 
 <body>
     <h1>hw-05: Interactive Graph with D3</h1>
+
+    <!-- Class for two columns in the page -->
     <div id="flex-columns">
         <div class="column">
+
+            <!-- Class for the first column in the page -->
             <div class="column1">
+
+                <!-- Frame that contains the scatter plot -->
                 <div id="vis1"></div>
             </div>
+
+            <!-- Class for the second column in the page -->
             <div class="column2">
                 <div id="last-selected"></div>
+
+                <!-- Input coordinates for a new point -->
+                <form> Select the x coordinate for the point you want to add.
+                    <select id="x-value">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                    </select>
+                </form>
+                <br>
+                <form> Select the y coordinate for the point you want to add.
+                    <select id="y-value">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                    </select>
+
+                    <br><br>
+
+                    <!-- Button for adding point -->
+                    <input type="button" onclick="addPoint()" id="button"
+                    value="Add point">
 
             </div>
     </div>
