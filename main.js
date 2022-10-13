@@ -82,7 +82,7 @@ d3.csv("data/scatter-data.csv").then((data) => {
             .enter()  
             .append("circle")
             .attr("cx", (d) => { return (X_SCALE(d.x) + MARGINS.left); }) // use x for cx
-            .attr("cy", (d) => { return (Y_SCLAE(d.y) + MARGINS.top); }) // use y for cy
+            .attr("cy", (d) => { return (Y_SCALE(d.y) + MARGINS.top); }) // use y for cy
             .attr("r", 10)  // set r 
             .attr("fill", "blue")
             .attr("class", "circle"); // fill by color
