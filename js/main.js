@@ -69,7 +69,6 @@ d3.csv("data/scatter-data.csv").then((data) => {
             .attr("cx", (d) => { return (X_SCALE(d.x) + MARGINS.left); }) // use x for cx
             .attr("cy", (d) => { return (Y_SCALE(d.y) + MARGINS.top); }) // use y for cy
             .attr("r", 10)  // set r 
-            .attr("fill", "blue")
             .attr("class", "circle"); // fill by color
     
     FRAME1.append("g") 
@@ -112,7 +111,6 @@ d3.csv("data/scatter-data.csv").then((data) => {
                 .attr("cx", (d) => { return (X_SCALE(d.x) + MARGINS.left);}) 
                 .attr("cy", (d) => { return (Y_SCALE(d.y) + MARGINS.top);}) 
                 .attr("r", 10)
-                .attr("fill", "blue")
                 .attr("class", "circle")
                     .on("click", circleClicked);
     
@@ -180,7 +178,7 @@ function build_bar_chart() {
                         return (VIS_H - Y_SCALE(d.amount));
                     })
                     .attr("width", X_SCALE.bandwidth())
-                    .attr("fill", "blue") // width comes from X_SCALE for free
+                     // width comes from X_SCALE for free
                     .attr("class", "bar"); 
 
 
