@@ -17,3 +17,10 @@ h1 {
 .column2 {
     flex: 40%;
 }
+circle:hover{
+    fill:orange;
+}
+.selected {
+    stroke: green;
+    stroke-width: 4;
+}

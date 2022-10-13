@@ -46,8 +46,25 @@ const FRAME1 = d3.select("#vis1")
                     .attr("width", FRAME_WIDTH)
                     .attr("class", "frame"); 
 
+
+
 // Next, open file 
 d3.csv("data/scatter-data.csv").then((data) => { 
+    // find max X
+    const MAX_X = d3.max(data, (d) => { return parseInt(d.x); });
+
+    // find max Y
+    const MAX_Y = d3.max(data, (d) => { return parseInt(d.y); });
+
+    // Define scale functions that maps our data values 
+    // (domain) to pixel values (range)
+    const X_SCALE = d3.scaleLinear() 
+            .domain([0, (MAX_X)]) // add some padding  
+            .range([0, FRAME_WIDTH]); 
+
+    const Y_SCALE = d3.scaleLinear() 
+            .domain([0, (MAX_Y)]) // add some padding  
+            .range([FRAME_HEIGHT,0]);
 
   // d3.csv parses a csv file 
   // .then() passes the data parsed from the file to a function
@@ -55,17 +72,34 @@ d3.csv("data/scatter-data.csv").then((data) => {
   // vis 
 
   // let's check our data
-  console.log(data); //Notice this data has 3 columns
+    console.log(1);
+    console.log(MAX_X); //Notice this data has 3 columns
                       // to access data in a column, use .
 
   // add our circles with styling 
-  FRAME1.selectAll("circle") 
-      .data(data) // this is passed from  .then()
-      .enter()  
-      .append("circle")
-        .attr("cx", (d) => { return d.x; }) // use x for cx
-        .attr("cy", (d) => { return d.y; }) // use y for cy
-        .attr("r", 10)  // set r 
-        .attr("fill", "blue"); // fill by color
+    FRAME1.selectAll("circle") 
+            .data(data) // this is passed from  .then()
+            .enter()  
+            .append("circle")
+            .attr("cx", (d) => { return (X_SCALE(d.x) + MARGINS.left); }) // use x for cx
+            .attr("cy", (d) => { return (Y_SCLAE(d.y) + MARGINS.top); }) // use y for cy
+            .attr("r", 10)  // set r 
+            .attr("fill", "blue")
+            .attr("class", "circle"); // fill by color
+    
+    FRAME1.append("g") 
+        .attr("transform", "translate(" + MARGINS.left + 
+            "," + (FRAME_HEIGHT + MARGINS.top) + ")") 
+        .call(d3.axisBottom(X_SCALE).ticks(4)) 
+            .attr("font-size", '20px'); 
+
+    // Add an y-axis to the vis  
+    FRAME1.append('g')  // g is a general SVG
+        .attr('transform', "translate(" + MARGINS.left +
+            "," + (MARGINS.bottom) +")") 
+        .call(d3.axisLeft(Y_SCALE).ticks(4))
+            .attr('font-size', '20px');
+
+    FRAME1.selectAll(".circle").on("click", circleClicked);
 
 }); // .then is closed here 
